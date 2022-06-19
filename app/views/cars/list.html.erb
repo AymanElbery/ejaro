@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row bg-image" style="background-image: url('https://www.ejaro.com/assets/landingPage/background_image.png'); height: 150px;">
+    <div class="col-2 offset-1 ps-5 mt-5 pt-2">
+      <img src="https://www.ejaro.com/assets/landingPage/logo.png" width="70%">
+    </div>
+    <div class="col-8 ps-5 mt-5 pt-3">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link text-white" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <% if request.env['PATH_INFO'] == '/cars' %>
+            <a class="nav-link active bg-black" href="/cars">All cars</a>
+          <% else %>
+            <a class="nav-link text-white" href="/cars">All cars</a>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <% if request.env['PATH_INFO'] == '/nearest' %>
+            <a class="nav-link active bg-black" aria-current="page" href="/nearest">Nearest cars</a>
+          <% else %>
+            <a class="nav-link text-white" aria-current="page" href="/nearest">Nearest cars</a>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-8 offset-2">
+      <% @cars.each do | car| %>
+        <div class="card mb-3 p-3" style="max-height: 300px; overflow: hidden">
+          <div class="row">
+            <div class="col-md-4">
+              <%= image_tag car['images'][0], alt: 'icon', class: "img-fluid" %>
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h3 class="card-title"><%= car['make'].capitalize %> | <%= car['model'].capitalize %></h3>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Kilometers Traveled: <strong> <%= car['kilometers'] %> KM</strong></li>
+                  <li class="list-group-item">Available From: <strong> <%= Time.parse(car['available_from']).strftime("%d/%m/%Y - %I:%M %p") %></strong></li>
+                  <li class="list-group-item">Available Until: <strong> <%= Time.parse(car['available_until']).strftime("%d/%m/%Y - %I:%M %p") %></strong></li>
+                  <li class="list-group-item">Location: <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=<%= car['lat'] %>,<%= car['long'] %>">click here</a></li>
+                </ul>
+                <a href="/cars/<%= car['id'] %>" class="btn btn-dark text-white float-end">See more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

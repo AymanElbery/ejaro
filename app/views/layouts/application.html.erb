@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ejaro</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  
+  <body>
+    <%= yield %>
+    <script>
+        function book(ava_from, ava_until){
+            let start = new Date($('#start_date').val()).getTime();
+            let end = new Date($('#end_date').val()).getTime();
+
+            ava_from = new Date(ava_from).getTime();
+            ava_until = new Date(ava_until).getTime();
+
+            if(ava_from <= start && ava_until >= end){
+                alert("Car Booked Successfully");
+            }else{
+                alert("The car is not available in the selected range, please select a range from AvailableFrom to AvailableUntil.");
+            }
+        }
+    </script>
+  </body>
+</html>

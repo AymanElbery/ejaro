@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row bg-image" style="background-image: url('https://www.ejaro.com/assets/landingPage/background_image.png'); height: 150px;">
+    <div class="col-2 offset-1 ps-5 mt-5 pt-2">
+      <img src="https://www.ejaro.com/assets/landingPage/logo.png" width="70%">
+    </div>
+    <div class="col-8 ps-5 mt-5 pt-3">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link text-white" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/cars">All cars</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" aria-current="page" href="#">Nearest cars</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="row mt-2">
+    <div class="col-3 offset-2">
+      <form>
+        <div class="form-group mt-3">
+          <label for="start_date">Start date</label>
+          <input type="datetime-local" class="form-control" id="start_date" placeholder="Enter start date for your booking ...">
+        </div>
+        <div class="form-group mt-3">
+          <label for="end_date">End date</label>
+          <input type="datetime-local" class="form-control" id="end_date" placeholder="Enter end date for your booking ...">
+        </div>
+        <button onclick="book('<%= @car['available_from'] %>', '<%= @car['available_until'] %>')" type="button" class="btn btn-dark text-white mt-5 w-100">Book</button>
+      </form>
+    </div>
+    <div class="col-5">
+      <table class="table">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Make</th>
+          <th><%= @car['make'].capitalize %></th>
+        </tr>
+        <tr>
+          <th scope="col">Model</th>
+          <th><%= @car['model'].capitalize %></th>
+        </tr>
+        <tr>
+          <th scope="col">Kilometers Traveled</th>
+          <th><%= @car['kilometers'] %> KM</th>
+        </tr>
+        <tr>
+          <th scope="col">Available From</th>
+          <th><%= Time.parse(@car['available_from']).strftime("%d/%m/%Y - %I:%M %p") %></th>
+        </tr>
+        <tr>
+          <th scope="col">Available Until</th>
+          <th><%= Time.parse(@car['available_until']).strftime("%d/%m/%Y - %I:%M %p") %></th>
+        </tr>
+        </thead>
+      </table>
+      <iframe
+        width="100%"
+        height="300"
+        frameborder="0"
+        scrolling="no"
+        marginheight="0"
+        marginwidth="0"
+        src="https://maps.google.com/maps?q=<%= @car['lat'] %>,<%= @car['long'] %>&hl=es&z=14&amp;output=embed">
+      </iframe>
+    </div>
+  </div>
+</div>
+
